@@ -19,7 +19,7 @@ void sendCommand(const char* command)
 
 	}
 	catch (const char* msg) {
-		std::cout << "erreur  à l'envoi de la commande: " << command << std::endl;
+		std::cout << "erreur a l'envoi de la commande: " << command << std::endl;
 		std::cout << "erreur: " << msg << std::endl;
 	}
 }
@@ -31,17 +31,17 @@ void Init()
 		hmi = serialOpen(device, baudrate);
 
 		sendCommand("");
-		sendCommand("bkcmd=1");					// définit le type de retour de l'écran (0=pas de retour; 1=uniquement cmd réussie; 2=uniquement cmd échouée; 3=tout)
+		sendCommand("bkcmd=1");					// dï¿½finit le type de retour de l'ï¿½cran (0=pas de retour; 1=uniquement cmd rï¿½ussie; 2=uniquement cmd ï¿½chouï¿½e; 3=tout)
 
 		while (serialDataAvail(hmi)) { serialGetchar(hmi); }
 
-		sendCommand("page 0");					// retourne à la page 0 (reset également les valeurs)
+		sendCommand("page 0");					// retourne ï¿½ la page 0 (reset ï¿½galement les valeurs)
 
 		while (serialDataAvail(hmi)) { serialGetchar(hmi); }
 
 	}
 	catch (const char* msg) {
-		std::cout << "erreur à l'initialisation de la connexion à l'écran: " << msg << std::endl;
+		std::cout << "erreur ï¿½ l'initialisation de la connexion ï¿½ l'ï¿½cran: " << msg << std::endl;
 	}
 }
 
@@ -49,7 +49,7 @@ void setTemp(double temp)
 {
 	try {
 
-		int temperature = int(temp * 10);		// change la valeur en entier, puis l'intègre dans le texte
+		int temperature = int(temp * 10);		// change la valeur en entier, puis l'intï¿½gre dans le texte
 		char text[LENGTH * sizeof(char)];
 		std::sprintf(text, "temp_val.val=%d", temperature);
 
@@ -59,7 +59,7 @@ void setTemp(double temp)
 
 	}
 	catch (const char* msg) {
-		std::cout << "erreur à l'envoi de la température: " << msg << std::endl;
+		std::cout << "erreur ï¿½ l'envoi de la tempï¿½rature: " << msg << std::endl;
 	}
 }
 
@@ -76,7 +76,7 @@ void setTemp(int temp)
 		while (serialDataAvail(hmi)) { serialGetchar(hmi); }
 	}
 	catch (const char* msg) {
-		std::cout << "erreur à l'envoi de la température: " << msg << std::endl;
+		std::cout << "erreur ï¿½ l'envoi de la tempï¿½rature: " << msg << std::endl;
 	}
 }
 
@@ -93,7 +93,7 @@ void setPwr(double pwr)
 		while (serialDataAvail(hmi)) { serialGetchar(hmi); }
 	}
 	catch (const char* msg) {
-		std::cout << "erreur à l'envoi de la puissance: " << msg << std::endl;
+		std::cout << "erreur ï¿½ l'envoi de la puissance: " << msg << std::endl;
 	}
 }
 
@@ -101,7 +101,7 @@ void setLatitude(int lat)
 {
 	try {
 
-		char text[LENGTH * sizeof(char)];		// intègre la valeur dans le texte
+		char text[LENGTH * sizeof(char)];		// intï¿½gre la valeur dans le texte
 		std::sprintf(text, "lat_val.val=%d", lat);
 
 		sendCommand(text);
@@ -109,7 +109,7 @@ void setLatitude(int lat)
 		while (serialDataAvail(hmi)) { serialGetchar(hmi); }
 	}
 	catch (const char* msg) {
-		std::cout << "erreur à l'envoi de la latitude: " << msg << std::endl;
+		std::cout << "erreur ï¿½ l'envoi de la latitude: " << msg << std::endl;
 	}
 }
 
@@ -125,7 +125,7 @@ void setLongitude(int lon)
 		while (serialDataAvail(hmi)) { serialGetchar(hmi); }
 	}
 	catch (const char* msg) {
-		std::cout << "erreur à l'envoi de la longitude: " << msg << std::endl;
+		std::cout << "erreur ï¿½ l'envoi de la longitude: " << msg << std::endl;
 	}
 }
 
@@ -156,7 +156,7 @@ void setSignal(int signal)
 		while (serialDataAvail(hmi)) { serialGetchar(hmi); }
 	}
 	catch (const char* msg) {
-		std::cout << "erreur à l'envoi du signal: " << msg << std::endl;
+		std::cout << "erreur ï¿½ l'envoi du signal: " << msg << std::endl;
 	}
 }
 
@@ -171,6 +171,6 @@ void close()
 		serialClose(hmi);
 	}
 	catch (const char* msg) {
-		std::cout << "erreur à la fermeture: " << msg << std::endl;
+		std::cout << "erreur ï¿½ la fermeture: " << msg << std::endl;
 	}
 }

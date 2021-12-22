@@ -5,17 +5,13 @@
 
 
 
-
-
-
-
 int main(void) {
 
 
     //INIT
     Init();
-
-    // changement de température
+ 
+    // changement de tempï¿½rature
     double temp = 16.0;
     setTemp(temp);
 
@@ -23,7 +19,7 @@ int main(void) {
     double pwr = 3650.0;
     setPwr(pwr);
 
-    //changement de coordonées géographique
+    //changement de coordonï¿½es gï¿½ographique
     setPosition(50.411986, 4.442602);
     
 
