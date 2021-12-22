@@ -1,6 +1,6 @@
 ﻿#include "SMS.h"
 
-void SendSMS(char numero[20], char message[200])
+/* void SendSMS(char numero[20], char message[200])
 {
     int connection;
     printf("Opening connection \n");
@@ -33,5 +33,5 @@ void SendSMS(char numero[20], char message[200])
 
     serialClose(connection);
 
-}
+} */
 
