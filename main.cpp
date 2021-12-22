@@ -6,7 +6,16 @@
 
 
 
-int main(void) {
+int mainScreen(void) {
+
+    //Init Convertisseur_température
+    mcp3422Setup(pinBase, ADDR_I2C, Taux_echantillonnage, Gain);
+
+    //Init Capteur_Température
+    max31855Setup(200, 0);
+
+
+    wiringPiSetup();
 
 
     //INIT
@@ -33,20 +42,41 @@ int main(void) {
     std::cout << "status: " << hmi << std::endl;
     close();
 
+<<<<<<< HEAD
     
     while(1){}
+=======
+
+    while(1)
+    
+    {
+    
+    
+    
+    }
+>>>>>>> 37a040206401847b21498f180a30c11d824dc613
 	return 0;
 
 }
 
+<<<<<<< HEAD
 /* int mainGyros() {
+=======
+int mainGyros() {
+>>>>>>> 37a040206401847b21498f180a30c11d824dc613
 
 	float Gyro_x, Gyro_y, Gyro_z;
 	float Gx = 0, Gy = 0, Gz = 0;
 	fd = wiringPiI2CSetup(Device_Address);   /*Initializes I2C with device Address*/
+<<<<<<< HEAD
 	/*MPU6050_Init();		                 /* Initializes MPU6050 */
 
 	/*while (1)
+=======
+	MPU6050_Init();		                 /* Initializes MPU6050 */
+
+	while (1)
+>>>>>>> 37a040206401847b21498f180a30c11d824dc613
 	{
 
 		Gyro_x = read_raw_data(GYRO_XOUT_H);
@@ -62,4 +92,8 @@ int main(void) {
 
 	}
 	return 0;
+<<<<<<< HEAD
 } */
+=======
+}
+>>>>>>> 37a040206401847b21498f180a30c11d824dc613
