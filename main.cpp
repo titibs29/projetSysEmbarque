@@ -2,10 +2,21 @@
 #include <wiringPi.h>
 #include <wiringSerial.h>
 #include "screen.h"
+#include "libs/Convertisseur_puissance.h"
+#include "libs/Temperature.h"
 
 
 
 int main(void) {
+
+    //Init Convertisseur_température
+    mcp3422Setup(pinBase, ADDR_I2C, Taux_echantillonnage, Gain);
+
+    //Init Capteur_Température
+    max31855Setup(200, 0);
+
+
+    wiringPiSetup();
 
 
     //INIT
@@ -31,7 +42,15 @@ int main(void) {
     int hmi = status();
     std::cout << "status: " << hmi << std::endl;
     close();
-    while(1){}
+
+
+    while(1)
+    
+    {
+    
+    
+    
+    }
 	return 0;
 
 }
