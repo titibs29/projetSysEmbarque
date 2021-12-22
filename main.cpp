@@ -1,9 +1,7 @@
 #include <iostream>
 #include <wiringPi.h>
 #include <wiringSerial.h>
-#include "screen.h"
-#include "libs/Convertisseur_puissance.h"
-#include "libs/Temperature.h"
+#include "libs/screen.h"
 
 
 
