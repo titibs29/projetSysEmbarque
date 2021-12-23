@@ -1,4 +1,9 @@
-﻿#define Device_Address 0x68	/*Device Address/Identifier for MPU6050*/
+#include <wiringPiI2C.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <wiringPi.h>
+
+#define Device_Address 0x68	/*Device Address/Identifier for MPU6050*/
 
 #define PWR_MGMT_1   0x6B
 #define SMPLRT_DIV   0x19

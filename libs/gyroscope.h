@@ -1,7 +1,8 @@
-#include <string.h>
-#include <iostream>
+#include <wiringPiI2C.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include <wiringPi.h>
-#include <wiringSerial.h>
+
 
 #pragma once
 
@@ -14,3 +15,6 @@ void ms_delay(int val);
 void traitementGyro();
 
 int mainGyroscope();
+
+void ms_delay(int val);
+
