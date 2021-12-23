@@ -14,36 +14,76 @@
 #define Taux_echantillonnage 0
 #define Gain 0
 
-#define gyrosActive true
-
+// système de containers, permet d'activer et desactiver les modules correspondants
+#define gyrosActive true 
+#define gpsActive false
+#define rtcActive false
+#define magnetoActive false
+#define gsmActive false
+#define screenActive false
+#define tempActive false
+#define convActive false
+#define stepActive false
 
 
 
 int main(void) {
 
-    //Init Gyro
+    // variables
     float gx =0, gy=0, gz=0;
     float* Gx = &gx;
     float* Gy = &gy;
     float* Gz = &gz;
 
+    //Init Gyro
     if(gyrosActive){
     MPU6050_Init();
     }
 
+    if(gpsActive){
 
-    //Init Convertisseur_température
-    mcp3422Setup(pinBase, ADDR_I2C, Taux_echantillonnage, Gain);
+    }
+
+    if(rtcActive){
+
+    }
+
+    if(magnetoActive){
+
+    }
+
+    if(gsmActive){
+
+    }
+
+    if(screenActive){
+    screenInit();
+    }
 
     //Init Capteur_Température
+    if(tempActive){
     max31855Setup(200, 0);
+
+    }
+
+    //Init Convertisseur_température
+    if(convActive){
+    mcp3422Setup(pinBase, ADDR_I2C, Taux_echantillonnage, Gain);
+
+    }
+
+    if(stepActive){
+
+    }
+
+
 
 
     wiringPiSetup();
 
 
     //INIT
-    Init();
+
  
    
 
@@ -54,6 +94,37 @@ int main(void) {
     if(gyrosActive){
         traitementGyro(*Gx, *Gy, *Gz);
         printf("x= %.2f, y= %.2f, z= %.2f", gx, gy, gz);
+    }
+    
+    if(gpsActive){
+
+    }
+
+    if(rtcActive){
+
+    }
+
+    if(magnetoActive){
+
+    }
+
+    if(gsmActive){
+
+    }
+
+    if(tempActive){
+
+    }
+
+    if(convActive){
+
+    }
+    if(stepActive){
+
+    }
+
+    if(screenActive){
+
     }
 
     }

@@ -6,7 +6,7 @@
 
 int hmi = 0;
 
-void sendCommand(const char* command)
+void screenSendCommand(const char* command)
 {
 	try {
 
@@ -24,7 +24,7 @@ void sendCommand(const char* command)
 	}
 }
 
-void Init()
+void screenInit()
 {
 	try {
 
@@ -45,7 +45,7 @@ void Init()
 	}
 }
 
-void setTemp(double temp)
+void screenSetTemp(double temp)
 {
 	try {
 
@@ -63,7 +63,7 @@ void setTemp(double temp)
 	}
 }
 
-void setTemp(int temp)
+void screenSetTemp(int temp)
 {
 	try {
 
@@ -80,7 +80,7 @@ void setTemp(int temp)
 	}
 }
 
-void setPwr(double pwr)
+void screenSetPwr(double pwr)
 {
 	try {
 
@@ -97,7 +97,7 @@ void setPwr(double pwr)
 	}
 }
 
-void setLatitude(int lat)
+void screenSetLatitude(int lat)
 {
 	try {
 
@@ -113,7 +113,7 @@ void setLatitude(int lat)
 	}
 }
 
-void setLongitude(int lon)
+void screenSetLongitude(int lon)
 {
 	try {
 
@@ -129,7 +129,7 @@ void setLongitude(int lon)
 	}
 }
 
-void setPosition(double lat, double lon)
+void screenSetPosition(double lat, double lon)
 {
 	try {
 		int latitude = int(lat * 1000000);
@@ -144,7 +144,7 @@ void setPosition(double lat, double lon)
 	}
 }
 
-void setSignal(int signal)
+void screenSetSignal(int signal)
 {
 	try {
 
@@ -160,12 +160,12 @@ void setSignal(int signal)
 	}
 }
 
-int status()
+int screenStatus()
 {
 	return hmi;
 }
 
-void close()
+void screenClose()
 {
 	try {
 		serialClose(hmi);

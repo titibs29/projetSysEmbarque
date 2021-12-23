@@ -5,24 +5,25 @@
 
 #pragma once
 
-void sendCommand(const char* cmd);
 
-void Init();
+void screenSendCommand(const char* cmd);
 
-void setTemp(double temp);
+void screenInit();
 
-void setTemp(int temp);
+void screenSetTemp(double temp);
 
-void setPwr(double pwr);
+void screenSetTemp(int temp);
 
-void setLatitude(int lat);
+void screenSetPwr(double pwr);
 
-void setLongitude(int lon);
+void screenSetLatitude(int lat);
 
-void setPosition(double lat,double lon);
+void screenSetLongitude(int lon);
 
-void setSignal(int sig);
+void screenSetPosition(double lat,double lon);
 
-int status();
+void screenSetSignal(int sig);
 
-void close();
+int screenStatus();
+
+void screenClose();
