@@ -16,7 +16,8 @@ int slave_Address;
 time_t t = time(NULL);
 tm* tPtr = localtime(&t);
 					//Initialisation de la librairie pour avoir l'heure et les dates actuelles//
-int main(void)
+/* int main(void)
+
 {
 	
 
@@ -43,6 +44,7 @@ int main(void)
 	}
 	return 0;
 }
+ */
 
 string give_day_of_week(int day) {
 	switch (day) {

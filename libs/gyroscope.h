@@ -10,11 +10,9 @@ void MPU6050_Init();
 
 short read_raw_data(int addr);
 
-void ms_delay(int val);
+void traitementGyro(float &Gx, float &Gy, float &Gz);
 
-void traitementGyro();
 
-int mainGyroscope();
 
-void ms_delay(int val);
+
 

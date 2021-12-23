@@ -1,3 +1,6 @@
+#include "gyroscope.h"
+
+
 #define Device_Address 0x68	/*Device Address/Identifier for MPU6050*/
 
 #define PWR_MGMT_1   0x6B
@@ -14,7 +17,7 @@
 
 int fd;
 float Gyro_x, Gyro_y, Gyro_z;
-float Gx = 0, Gy = 0, Gz = 0;
+//float Gx = 0, Gy = 0, Gz = 0;
 
 void MPU6050_Init() {
 
@@ -35,15 +38,9 @@ short read_raw_data(int addr) {
 	return value;
 }
 
-void ms_delay(int val) {
-	int i, j;
-	for (i = 0; i <= val; i++)
-		for (j = 0; j < 1200; j++);
-}
 
-<<<<<<< HEAD
-=======
-void traitementGyro() {
+
+void traitementGyro(float &Gx, float &Gy, float &Gz) {
 	Gyro_x = read_raw_data(GYRO_XOUT_H);
 	Gyro_y = read_raw_data(GYRO_YOUT_H);
 	Gyro_z = read_raw_data(GYRO_ZOUT_H);
@@ -56,14 +53,4 @@ void traitementGyro() {
 	delay(500);
 }
 
-int mainGyroscope() {
 
-	MPU6050_Init();
-
-	while (1)
-	{
-		traitementGyro();
-	}
-	return 0;
-}
->>>>>>> 37a040206401847b21498f180a30c11d824dc613
