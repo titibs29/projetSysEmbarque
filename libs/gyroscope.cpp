@@ -1,14 +1,4 @@
-﻿/*
-	MPU6050 Interfacing with Raspberry Pi
-	http://www.electronicwings.com
-*/
-
-#include <wiringPiI2C.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <wiringPi.h>
-
-#define Device_Address 0x68	/*Device Address/Identifier for MPU6050*/
+﻿#define Device_Address 0x68	/*Device Address/Identifier for MPU6050*/
 
 #define PWR_MGMT_1   0x6B
 #define SMPLRT_DIV   0x19
@@ -23,8 +13,12 @@
 #define GYRO_ZOUT_H  0x47
 
 int fd;
+float Gyro_x, Gyro_y, Gyro_z;
+float Gx = 0, Gy = 0, Gz = 0;
 
 void MPU6050_Init() {
+
+	fd = wiringPiI2CSetup(Device_Address); 
 
 	wiringPiI2CWriteReg8(fd, SMPLRT_DIV, 0x07);	/* Write to sample rate register */
 	wiringPiI2CWriteReg8(fd, PWR_MGMT_1, 0x01);	/* Write to power management register */
@@ -47,27 +41,26 @@ void ms_delay(int val) {
 		for (j = 0; j < 1200; j++);
 }
 
-int main() {
+void traitementGyro() {
+	Gyro_x = read_raw_data(GYRO_XOUT_H);
+	Gyro_y = read_raw_data(GYRO_YOUT_H);
+	Gyro_z = read_raw_data(GYRO_ZOUT_H);
 
-	float Gyro_x, Gyro_y, Gyro_z;
-	float Gx = 0, Gy = 0, Gz = 0;
-	fd = wiringPiI2CSetup(Device_Address);   /*Initializes I2C with device Address*/
-	MPU6050_Init();		                 /* Initializes MPU6050 */
+	Gx = Gyro_x / 131;
+	Gy = Gyro_y / 131;
+	Gz = Gyro_z / 131;
+
+	printf("\n Gx=%.3f °/s\tGy=%.3f °/s\tGz=%.3f °/s\t", Gx, Gy, Gz);
+	delay(500);
+}
+
+int mainGyroscope() {
+
+	MPU6050_Init();
 
 	while (1)
 	{
-
-		Gyro_x = read_raw_data(GYRO_XOUT_H);
-		Gyro_y = read_raw_data(GYRO_YOUT_H);
-		Gyro_z = read_raw_data(GYRO_ZOUT_H);
-
-		Gx = Gyro_x / 131;
-		Gy = Gyro_y / 131;
-		Gz = Gyro_z / 131;
-
-		printf("\n Gx=%.3f °/s\tGy=%.3f °/s\tGz=%.3f °/s\t", Gx, Gy, Gz);
-		delay(500);
-
+		traitementGyro();
 	}
 	return 0;
 }
