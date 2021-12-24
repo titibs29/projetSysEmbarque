@@ -32,9 +32,9 @@ int main(void) {
 
     // variables
     float gx =0, gy=0, gz=0;
-    float* Gx = &gx;
-    float* Gy = &gy;
-    float* Gz = &gz;
+    float* p_gx = &gx;
+    float* p_gy = &gy;
+    float* p_gz = &gz;
 
     //Init Gyro
     if(gyrosActive){
@@ -93,7 +93,7 @@ int main(void) {
     {
     
     if(gyrosActive){
-        traitementGyro(*Gx, *Gy, *Gz);
+        traitementGyro(p_gx, p_gy, p_gz);
         printf("x= %.2f, y= %.2f, z= %.2f", gx, gy, gz);
     }
     

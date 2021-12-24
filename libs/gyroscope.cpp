@@ -40,14 +40,14 @@ short read_raw_data(int addr) {
 
 
 
-void traitementGyro(float &Gx, float &Gy, float &Gz) {
+void traitementGyro(float* p_gx, float* p_gy, float* p_gz) {
 	Gyro_x = read_raw_data(GYRO_XOUT_H);
 	Gyro_y = read_raw_data(GYRO_YOUT_H);
 	Gyro_z = read_raw_data(GYRO_ZOUT_H);
 
-	Gx = Gyro_x / 131;
-	Gy = Gyro_y / 131;
-	Gz = Gyro_z / 131;
+	*p_gx = Gyro_x / 131;
+	*p_gy = Gyro_y / 131;
+	*p_gz = Gyro_z / 131;
 
 	printf("\n Gx=%.3f °/s\tGy=%.3f °/s\tGz=%.3f °/s\t", Gx, Gy, Gz);
 	delay(500);
