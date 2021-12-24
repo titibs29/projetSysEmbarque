@@ -11,7 +11,7 @@ projet commun du cours de Système embarqué
 ## charte des actions
 ### setup()
 ´´´
-noter ici le code à inplémenter avant la boucle principa
+noter ici le code à implémenter avant la boucle principale
 ´´´
 ### loop()
 ´´´
