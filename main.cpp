@@ -125,6 +125,15 @@ int main(void) {
 
     if(screenActive){
 
+        // code de démonstration, veuillez remplacer les chiffres par les variables 
+    screenSetTemp(24.5);
+
+    screenSetPwr(245.0);
+
+    screenSetPosition(50.460860,3.957098);
+
+    screenSetSignal(2);
+
     }
 
     }

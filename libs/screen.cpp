@@ -49,7 +49,7 @@ void screenSetTemp(double temp)
 {
 	try {
 
-		int temperature = int(temp * 10);		// change la valeur en entier, puis l'int�gre dans le texte
+		int temperature = int(temp * 10);		// change la valeur en entier, puis l'integre dans le texte
 		char text[LENGTH * sizeof(char)];
 		std::sprintf(text, "temp_val.val=%d", temperature);
 
