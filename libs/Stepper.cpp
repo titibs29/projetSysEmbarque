@@ -37,11 +37,12 @@ void step_day_light(time_t t, tm* tPtr, float lat, int &rise_time, int &time_bet
 {
 	t = time(NULL);
 	tPtr = localtime(&t);
-	int ctr = 0, jour = 0;
+	int ctr = 0;
+	int jour = 0; // ctr unused
 	float full_step = 1.8;
 	float half_step = full_step/2;
-	float eigth_step = full_step / 8;
-	float sixteenth_step = full_step / 16;
+	// float eigth_step = full_step / 8; // unused
+	// float sixteenth_step = full_step / 16; // unused
 	int tab_months[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	//on va chercher le nombre de jours écoulés depuis le début de l'année (besoin pour calcul durée du jour) :
 	for(int j = 0; j<(tPtr->tm_mon);j++) jour += tab_months[j+1];
@@ -75,8 +76,8 @@ void step_day_light(time_t t, tm* tPtr, float lat, int &rise_time, int &time_bet
 void do_steps(time_t t, tm* tPtr, float lat, int &rise_time, int& temp_rise_time, int& time_between_steps)
 {
 	//bool hemi : 1 (NORD), hemi : 0 (SUD)
-	bool hemi;
-	if (lat < 0) hemi = 0;
+	bool hemi; // unused
+	if (lat < 0) hemi = 0 ;
 	else hemi = 1;
 	//on va chercher l'heure actuelle sur le raspi à chaque appel de cette fonction
 	t = time(NULL);

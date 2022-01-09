@@ -1,21 +1,12 @@
-#define _CRT_SECURE_NO_WARNINGS //stop warning boring when i run code
-#include <iostream>
-#include <fstream>
-#include <stdio.h>
-#include <string.h>
-#include <cstring>
-#include "unistd.h"
-#include <wiringPi.h>
-#include <wiringSerial.h>
+#include "GPS.h"
 
-using namespace std;
 
 
 void GPS_location_GPGGA(char *lat, char *lng)
 {
 	int serial_port;
-	int i = 0, k = 0;
-	char data, buff[100] = "", NMEA_code[3] = "", NMEA_prefixe[3] = "", NMEATRAME[100] = "";
+	int i = 0;
+	char data, buff[100] = "", NMEA_code[3] = "", NMEA_prefixe[3] = "";
 	string NMEA_code_s = "", buff_s;
 	unsigned char IsitNMEAstring = 0;
 	int NMEA_index = 0;
@@ -94,7 +85,7 @@ string ChartoString(char parameter[])
 {
 	string s = "";
 
-	for (int i = 0; i < sizeof(&parameter) - 1; i++) s += parameter[i];
+	for (uint i = 0; i < sizeof(&parameter) - 1; i++) s += parameter[i];
 
 	return s;
 }

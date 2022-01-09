@@ -48,6 +48,6 @@ void traitementGyro(float *p_gx, float *p_gy, float *p_gz)
 	*p_gy = Gyro_y / 131;
 	*p_gz = Gyro_z / 131;
 
-	printf("\n Gx=%.3f °/s\tGy=%.3f °/s\tGz=%.3f °/s\t", p_gx, p_gy, p_gz);
+	printf("\n Gx=%.3f °/s\tGy=%.3f °/s\tGz=%.3f °/s\t",  Gyro_x / 131, Gyro_y / 131, Gyro_z / 131);
 	delay(500);
 }

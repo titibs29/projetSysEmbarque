@@ -9,8 +9,8 @@
 #include "libs/Temperature.h"
 #include "libs/gyroscope.h"
 #include "libs/rtc.h"
-#include "libs/hmc5883l.h"
 #include "libs/stepper.h"
+#include "libs/GPS.h"
 
 // Define du convertisseur
 #define ADDR_I2C 0x68 // Adresse en hexa de la communication I2C
@@ -48,7 +48,7 @@ int main(void)
     // stepper
     int rise_time = 1, time_between_steps = 1;
     float lat_heh = 1.352083; // MONS : 50.454241;
-    int ctr = 0;
+    int ctr = 0;              // unused
     time_t t = time(NULL);
     tm *tPtr = localtime(&t);
 
@@ -69,6 +69,12 @@ int main(void)
 
     if (rtcActive)
     {
+        wiringPiSetupGpio();
+        slave_Address = wiringPiI2CSetup(slave_Add);
+
+        int heure = 0, minute = 0, seconde = 0, day = 0, date = 0, month = 0, year = 0;
+
+        RTC_Init(seconde, minute, heure, day, date, month, year); // Initialisation aux valeurs envoyées (valeurs actuelles)
     }
 
     if (magnetoActive)
@@ -124,6 +130,16 @@ int main(void)
 
         if (rtcActive)
         {
+            int sec = RTC_read(slave_Address, 0);   // sec
+            int min = RTC_read(slave_Address, 1);   // min
+            int h = RTC_read(slave_Address, 2);     // heures
+            int day = RTC_read(slave_Address, 3);   // Day
+            int date = RTC_read(slave_Address, 4);  // Date
+            int month = RTC_read(slave_Address, 5); // Month
+            int year = RTC_read(slave_Address, 6);  // Year
+
+            cout << give_day_of_week(transfoDCB_To_Dec(day)) << " " << transfoDCB_To_Dec(date) << " " << give_month_of_year(transfoDCB_To_Dec(month)) << " " << 20 << transfoDCB_To_Dec(year) << "~~" << transfoDCB_To_Dec(h) << ":" << transfoDCB_To_Dec(min) << ":" << transfoDCB_To_Dec(sec) << ":" << endl;
+            delay(1000);
         }
 
         if (magnetoActive)
