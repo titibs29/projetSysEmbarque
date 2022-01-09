@@ -5,11 +5,4 @@
 #include <mcp3422.h>
 #pragma once
 
-
-
-
-
-
-
-
 void Convertisseur();

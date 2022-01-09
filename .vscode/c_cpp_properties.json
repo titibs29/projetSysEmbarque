@@ -4,7 +4,8 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/libs/**",
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "/usr/include/arm-linux-gnueabihf/sys"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

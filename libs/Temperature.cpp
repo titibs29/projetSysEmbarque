@@ -1,9 +1,5 @@
 #include "Temperature.h"
 
-
-
-
-
 void Temperature()
 {
 	system("clear");

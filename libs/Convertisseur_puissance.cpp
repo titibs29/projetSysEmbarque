@@ -1,15 +1,6 @@
 #include "Convertisseur_puissance.h"
 
-
-
-
 using namespace std;
-
-
-
-
-
-
 
 void Convertisseur()
 {
