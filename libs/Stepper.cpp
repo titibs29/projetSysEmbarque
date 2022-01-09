@@ -1,9 +1,5 @@
-#include <wiringPi.h>
-#include <iostream>
-#include <time.h>
-//#include <math.h>
-#include <cmath>
-#include <ctime>
+#include "stepper.h"
+
 using namespace std;
 
 #define _CRT_SECURE_NO_WARNINGS
@@ -143,30 +139,3 @@ void do_steps(time_t t, tm* tPtr, float lat, int &rise_time, int& temp_rise_time
 	}
 }
 
-
-int main(void)
-{
-	int ctr = 0;
-	wiringPiSetupGpio();
-
-	pinMode(CLK, OUTPUT);
-	pinMode(DIR, OUTPUT);
-	pinMode(BUTTON, INPUT);
-
-	time_t t = time(NULL);
-	tm* tPtr = localtime(&t);
-
-	int rise_time = 1, time_between_steps = 1;
-	float lat_heh = 1.352083; //MONS : 50.454241;
-
-	step_day_light(t, tPtr, lat_heh, rise_time, time_between_steps);
-
-	while (1)
-	{
-		int temp_rise_time = rise_time;		//garder en permanence en mémoire le rise time calculé au power on.
-		do_steps(t, tPtr, lat_heh, rise_time, temp_rise_time, time_between_steps);
-	}
-
-	
-	return 0;
-}

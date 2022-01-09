@@ -94,7 +94,7 @@ string ChartoString(char parameter[])
 {
 	string s = "";
 
-	for (int i = 0; i < sizeof(parameter) - 1; i++) s += parameter[i];
+	for (int i = 0; i < sizeof(&parameter) - 1; i++) s += parameter[i];
 
 	return s;
 }
