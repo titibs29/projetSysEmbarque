@@ -30,12 +30,12 @@ void screenInit()
 
 		hmi = serialOpen(device, baudrate);
 
-		sendCommand("");
-		sendCommand("bkcmd=1");					// d�finit le type de retour de l'�cran (0=pas de retour; 1=uniquement cmd r�ussie; 2=uniquement cmd �chou�e; 3=tout)
+		screenSendCommand("");
+		screenSendCommand("bkcmd=1");					// d�finit le type de retour de l'�cran (0=pas de retour; 1=uniquement cmd r�ussie; 2=uniquement cmd �chou�e; 3=tout)
 
 		while (serialDataAvail(hmi)) { serialGetchar(hmi); }
 
-		sendCommand("page 0");					// retourne � la page 0 (reset �galement les valeurs)
+		screenSendCommand("page 0");					// retourne � la page 0 (reset �galement les valeurs)
 
 		while (serialDataAvail(hmi)) { serialGetchar(hmi); }
 
@@ -53,7 +53,7 @@ void screenSetTemp(double temp)
 		char text[LENGTH * sizeof(char)];
 		std::sprintf(text, "temp_val.val=%d", temperature);
 
-		sendCommand(text);
+		screenSendCommand(text);
 
 		while (serialDataAvail(hmi)) { serialGetchar(hmi); }
 
@@ -71,7 +71,7 @@ void screenSetTemp(int temp)
 		char text[LENGTH * sizeof(char)];
 		std::sprintf(text, "temp_val.val=%d", temperature);
 
-		sendCommand(text);
+		screenSendCommand(text);
 
 		while (serialDataAvail(hmi)) { serialGetchar(hmi); }
 	}
@@ -88,7 +88,7 @@ void screenSetPwr(double pwr)
 		char text[LENGTH * sizeof(char)];
 		std::sprintf(text, "pow_val.val=%d", power);
 
-		sendCommand(text);
+		screenSendCommand(text);
 
 		while (serialDataAvail(hmi)) { serialGetchar(hmi); }
 	}
@@ -104,7 +104,7 @@ void screenSetLatitude(int lat)
 		char text[LENGTH * sizeof(char)];		// int�gre la valeur dans le texte
 		std::sprintf(text, "lat_val.val=%d", lat);
 
-		sendCommand(text);
+		screenSendCommand(text);
 
 		while (serialDataAvail(hmi)) { serialGetchar(hmi); }
 	}
@@ -120,7 +120,7 @@ void screenSetLongitude(int lon)
 		char text[LENGTH * sizeof(char)];
 		std::sprintf(text, "lon_val.val=%d", lon);
 
-		sendCommand(text);
+		screenSendCommand(text);
 
 		while (serialDataAvail(hmi)) { serialGetchar(hmi); }
 	}
@@ -135,8 +135,8 @@ void screenSetPosition(double lat, double lon)
 		int latitude = int(lat * 1000000);
 		int longitude = int(lon * 1000000);
 
-		setLatitude(latitude);
-		setLongitude(longitude);
+		screenSetLatitude(latitude);
+		screenSetLongitude(longitude);
 
 	}
 	catch (const char* msg) {
@@ -151,7 +151,7 @@ void screenSetSignal(int signal)
 		char text[LENGTH * sizeof(char)];
 		std::sprintf(text, "sig_val.val=%d", signal);
 
-		sendCommand(text);
+		screenSendCommand(text);
 
 		while (serialDataAvail(hmi)) { serialGetchar(hmi); }
 	}
