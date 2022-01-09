@@ -52,6 +52,11 @@ int main(void)
     time_t t = time(NULL);
     tm *tPtr = localtime(&t);
 
+    // gsm
+    bool envoiMessage = true;
+    char numero[20] = "\"+32494801130\"";
+    char message[200] = "Votre Message ici.";
+
     // Init Gyro
     if (gyrosActive)
     {
@@ -127,6 +132,12 @@ int main(void)
 
         if (gsmActive)
         {
+            if (envoiMessage)
+            {
+                envoiMessage = false;
+            }
+
+            SendSMS(numero, message);
         }
 
         if (tempActive)

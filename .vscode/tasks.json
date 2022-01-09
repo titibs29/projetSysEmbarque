@@ -7,11 +7,11 @@
 			"command": "/usr/bin/g++",
 			"args": [
 				"-g",
+				"-Wall",
 				"${workspaceFolder}/main.cpp",
 				"${workspaceFolder}/libs/*.cpp",
-				//"${workspaceFolder}/libs/*.h",
 				"-o",
-				"${fileDirname}/${fileBasenameNoExtension}",
+				"${workspaceFolder}/main.o",
 				"-lwiringPi"
 			],
 			"options": {
