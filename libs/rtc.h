@@ -8,7 +8,7 @@
 
 void RTC_Send(int address, int regis, int data);                                              // Envoi de valeur dans la RTC
 int RTC_read(int address, int reg);                                                           // Lecture de ces valeurs
-void RTC_Init(int secondes, int minutes, int heures, int day, int date, int month, int year); // Utilisation de RTC_Send pour initialiser à 0
+void RTC_Init(int secondes, int minutes, int heures, int day, int date, int month, int year, int slave_Address); // Utilisation de RTC_Send pour initialiser à 0
 std::string give_day_of_week(int day);
 std::string give_month_of_year(int month);
 

@@ -5,12 +5,10 @@
 #include "rtc.h"
 
 
-#define slave_Add 0b1101000 //0x68
 using namespace std;
 
 
 
-int slave_Address;
 
 					//Initialisation de la librairie pour avoir l'heure et les dates actuelles//
 time_t t = time(NULL);
@@ -77,7 +75,7 @@ string give_month_of_year(int month) {
 	}
 }
 //Initialisation et fonction de vérification
-void RTC_Init(int secondes, int minutes, int heures, int day, int date, int month, int year)
+void RTC_Init(int secondes, int minutes, int heures, int day, int date, int month, int year, int slave_Address)
 {
 	if (heures >= 23)
 	{

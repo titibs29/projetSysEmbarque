@@ -13,7 +13,7 @@
 #include "libs/GPS.h"
 
 // Define du convertisseur
-#define ADDR_I2C 0x68 // Adresse en hexa de la communication I2C
+#define ADDR_I2C 0x69 // Adresse en hexa de la communication I2C
 #define pinBase 100
 #define Taux_echantillonnage 0
 #define Gain 0
@@ -22,6 +22,9 @@
 #define CLK 27
 #define DIR 26
 #define BUTTON 16
+
+// Define rtc
+#define slave_Add 0b1101000 //0x68
 
 // système de containers, permet d'activer et desactiver les modules correspondants
 #define gyrosActive true
@@ -57,6 +60,10 @@ int main(void)
     char numero[20] = "\"+32494801130\"";
     char message[200] = "Votre Message ici.";
 
+    // rtc
+    int slave_Address;
+
+
     // Init Gyro
     if (gyrosActive)
     {
@@ -74,7 +81,7 @@ int main(void)
 
         int heure = 0, minute = 0, seconde = 0, day = 0, date = 0, month = 0, year = 0;
 
-        RTC_Init(seconde, minute, heure, day, date, month, year); // Initialisation aux valeurs envoyées (valeurs actuelles)
+        RTC_Init(seconde, minute, heure, day, date, month, year, slave_Address); // Initialisation aux valeurs envoyées (valeurs actuelles)
     }
 
     if (magnetoActive)
@@ -115,7 +122,7 @@ int main(void)
 
     // INIT
 
-    while (1)
+    while (true)
     {
 
         if (gyrosActive)
