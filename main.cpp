@@ -1,6 +1,8 @@
 #include <iostream>
 #include <wiringPi.h>
 #include <wiringSerial.h>
+#include <chrono>
+
 #include "libs/screen.h"
 #include "libs/SMS.h"
 #include "libs/Convertisseur_puissance.h"
@@ -8,14 +10,14 @@
 #include "libs/gyroscope.h"
 #include "libs/rtc.h"
 
-//Define du convertisseur
-#define ADDR_I2C 0x68							//Adresse en hexa de la communication I2C
-#define pinBase 100                     
+// Define du convertisseur
+#define ADDR_I2C 0x68 // Adresse en hexa de la communication I2C
+#define pinBase 100
 #define Taux_echantillonnage 0
 #define Gain 0
 
 // système de containers, permet d'activer et desactiver les modules correspondants
-#define gyrosActive true 
+#define gyrosActive true
 #define gpsActive false
 #define rtcActive false
 #define magnetoActive false
@@ -25,120 +27,131 @@
 #define convActive false
 #define stepActive false
 
-
-
-int main(void) {
+int main(void)
+{
+    // time manager
+    std::chrono::time_point<std::chrono::system_clock> actualTime, previousTime, previousGyrosTime; // ajouter une variable par bloc de délai
+    previousTime = std::chrono::system_clock::now();
+    previousGyrosTime = std::chrono::system_clock::now(); // donner une première valeur au bloc de délai
+    long int diffTime, diffGyrosTime; // ajouter une variable de comparaison
 
     // variables
-    float gx =0, gy=0, gz=0;
-    float* p_gx = &gx;
-    float* p_gy = &gy;
-    float* p_gz = &gz;
+    float gx = 0, gy = 0, gz = 0;
+    float *p_gx = &gx, *p_gy = &gy, *p_gz = &gz;
 
-    //Init Gyro
-    if(gyrosActive){
-    MPU6050_Init();
+    // Init Gyro
+    if (gyrosActive)
+    {
+        MPU6050_Init();
     }
 
-    if(gpsActive){
-
+    if (gpsActive)
+    {
     }
 
-    if(rtcActive){
-
+    if (rtcActive)
+    {
     }
 
-    if(magnetoActive){
-
+    if (magnetoActive)
+    {
     }
 
-    if(gsmActive){
-
+    if (gsmActive)
+    {
     }
 
-    if(screenActive){
-    screenInit();
+    if (screenActive)
+    {
+        screenInit();
     }
 
-    //Init Capteur_Température
-    if(tempActive){
-    max31855Setup(200, 0);
-
+    // Init Capteur_Température
+    if (tempActive)
+    {
+        max31855Setup(200, 0);
     }
 
-    //Init Convertisseur_température
-    if(convActive){
-    mcp3422Setup(pinBase, ADDR_I2C, Taux_echantillonnage, Gain);
-
+    // Init Convertisseur_température
+    if (convActive)
+    {
+        mcp3422Setup(pinBase, ADDR_I2C, Taux_echantillonnage, Gain);
     }
 
-    if(stepActive){
-
+    if (stepActive)
+    {
     }
-
-
-
 
     wiringPiSetup();
 
+    // INIT
 
-    //INIT
-
- 
-   
-
-
-    while(1)
+    while (1)
     {
-    
-    if(gyrosActive){
-        traitementGyro(p_gx, p_gy, p_gz);
-        printf("x= %.2f, y= %.2f, z= %.2f", gx, gy, gz);
+        actualTime = std::chrono::system_clock::now(); // reprend le temps actuel
+
+        diffTime = std::chrono::duration_cast<std::chrono::milliseconds>(actualTime - previousTime).count(); // calcule la différence depuis le dernier passage
+        if (diffTime >= 1000) // si diff de + de 1 sec
+        {
+            std::chrono::system_clock::time_point today = std::chrono::system_clock::now(); // ces trois
+            std::time_t tt = std::chrono::system_clock::to_time_t(today);                   // lignes affichent
+            std::cout << ctime(&tt) << std::endl;                                           // le temps actuel
+
+            previousTime = std::chrono::system_clock::now(); // place la barre du dernier passage
+        }
+
+        if (gyrosActive)
+        {
+            diffGyrosTime = std::chrono::duration_cast<std::chrono::milliseconds>(actualTime - previousGyrosTime).count();
+            if (diffGyrosTime >= 500)
+            {
+                traitementGyro(p_gx, p_gy, p_gz);
+                printf("x= %.2f, y= %.2f, z= %.2f \n", gx, gy, gz);
+                previousGyrosTime = std::chrono::system_clock::now();
+            }
+
+            // delay 500
+        }
+
+        if (gpsActive)
+        {
+        }
+
+        if (rtcActive)
+        {
+        }
+
+        if (magnetoActive)
+        {
+        }
+
+        if (gsmActive)
+        {
+        }
+
+        if (tempActive)
+        {
+        }
+
+        if (convActive)
+        {
+        }
+        if (stepActive)
+        {
+        }
+
+        if (screenActive)
+        {
+
+            // code de démonstration, veuillez remplacer les chiffres par les variables
+            screenSetTemp(24.5);
+
+            screenSetPwr(245.0);
+
+            screenSetPosition(50.460860, 3.957098);
+
+            screenSetSignal(2);
+        }
     }
-    
-    if(gpsActive){
-
-    }
-
-    if(rtcActive){
-
-    }
-
-    if(magnetoActive){
-
-    }
-
-    if(gsmActive){
-
-    }
-
-    if(tempActive){
-
-    }
-
-    if(convActive){
-
-    }
-    if(stepActive){
-
-    }
-
-    if(screenActive){
-
-        // code de démonstration, veuillez remplacer les chiffres par les variables 
-    screenSetTemp(24.5);
-
-    screenSetPwr(245.0);
-
-    screenSetPosition(50.460860,3.957098);
-
-    screenSetSignal(2);
-
-    }
-
-    }
-	return 0;
-
+    return 0;
 }
-
-
