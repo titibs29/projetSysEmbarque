@@ -16,7 +16,6 @@
 
 int fd;
 float Gyro_x, Gyro_y, Gyro_z;
-// float Gx = 0, Gy = 0, Gz = 0;
 
 void MPU6050_Init()
 {
@@ -44,10 +43,10 @@ void traitementGyro(float *p_gx, float *p_gy, float *p_gz)
 	Gyro_y = read_raw_data(GYRO_YOUT_H);
 	Gyro_z = read_raw_data(GYRO_ZOUT_H);
 
-	// *p_gx = Gyro_x / 131;
-	// *p_gy = Gyro_y / 131;
-	// *p_gz = Gyro_z / 131;
-	*p_gx = 25.0f;
-	*p_gy = 25.0f;
-	*p_gz = 25.0f;
+	*p_gx = Gyro_x / 131;
+	*p_gy = Gyro_y / 131;
+	*p_gz = Gyro_z / 131;
+	// *p_gx = 25.0f; // debug 
+	// *p_gy = 25.0f;
+	// *p_gz = 25.0f;
 }
