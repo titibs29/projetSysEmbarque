@@ -1,12 +1,7 @@
 #include "Temperature.h"
 
-
-
-
-
 void Temperature()
 {
-	system("clear");
 	if (analogRead(201))
 	{
 		printf("ERREUR\n");
