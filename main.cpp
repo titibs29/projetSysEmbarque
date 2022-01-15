@@ -2,6 +2,8 @@
 #include <wiringPi.h>
 #include <wiringSerial.h>
 #include <chrono>
+#include <mcp3422.h>
+
 
 #include "libs/screen.h"
 #include "libs/SMS.h"
@@ -16,15 +18,15 @@
 #define Taux_echantillonnage 0
 #define Gain 0
 
-// système de containers, permet d'activer et desactiver les modules correspondants
+// système de containers, permet d'activer et desactiver les modules
 #define gyrosActive true
+#define convActive false // ! compile, mais entre en boucle infinie sans capteur
 #define gpsActive false
 #define rtcActive false
 #define magnetoActive false
 #define gsmActive false
 #define screenActive false
 #define tempActive false
-#define convActive false
 #define stepActive false
 
 int main(void)
@@ -38,6 +40,9 @@ int main(void)
     // variables
     float gx = 0, gy = 0, gz = 0;
     float *p_gx = &gx, *p_gy = &gy, *p_gz = &gz;
+
+    float tension = 0, courant = 0, puissance = 0;
+    float *p_tension = &tension, *p_courant = &courant, *p_puissance = &puissance;
 
     wiringPiSetup();
 
@@ -125,7 +130,13 @@ int main(void)
 
         if (convActive)
         {
+            Convertisseur(p_tension, p_courant, p_puissance);
+
+            std::cout << "tension = " << tension << " V" << std::endl;
+            std::cout << "courant = " << courant << " A" << std::endl;
+            std::cout << "puissance = " << puissance << " W" << std::endl;
         }
+
         if (stepActive)
         {
         }
@@ -151,5 +162,6 @@ int main(void)
             screenSetSignal(2);
         }
     }
+
     return 0;
 }
