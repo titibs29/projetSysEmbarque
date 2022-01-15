@@ -2,4 +2,4 @@
 #include <iostream>
 #pragma once
 
-void Temperature();
+void Temperature(float* p_temp);

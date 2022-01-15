@@ -4,13 +4,11 @@
 #include <mcp3422.h>
 #include <max31855.h>
 
-
-
 #include "libs/gyroscope.h"
 #include "libs/Convertisseur_puissance.h"
 #include "libs/screen.h"
 // #include "libs/SMS.h"
-// #include "libs/Temperature.h"
+#include "libs/Temperature.h"
 // #include "libs/rtc.h"
 
 // Define du convertisseur
@@ -20,23 +18,28 @@
 #define Gain 0
 
 // système de containers, permet d'activer et desactiver les modules
-#define gyrosActive true
+#define gyrosActive false
 #define convActive false // ! compile, mais entre en boucle infinie sans capteur
+#define tempActive false
 #define gpsActive false
 #define rtcActive false
 #define magnetoActive false
 #define gsmActive false
 #define screenActive false
-#define tempActive false
 #define stepActive false
+
+#define DELAYCLOCK 1000
+#define DELAYGYROS 500
+#define DELAYTEMP 1000
 
 int main(void)
 {
     // time manager
-    std::chrono::time_point<std::chrono::system_clock> actualTime, previousTime, previousGyrosTime; // ajouter une variable par bloc de délai
+    std::chrono::time_point<std::chrono::system_clock> actualTime, previousTime, previousGyrosTime, previousTempTime; // ajouter une variable par bloc de délai
     previousTime = std::chrono::system_clock::now();
     previousGyrosTime = std::chrono::system_clock::now(); // donner une première valeur au bloc de délai
-    long int diffTime, diffGyrosTime;                     // ajouter une variable de comparaison
+    previousTempTime = std::chrono::system_clock::now();
+    long int diffTime, diffGyrosTime, diffTempTime; // ajouter une variable de comparaison
 
     // variables
     float gx = 0, gy = 0, gz = 0;
@@ -44,6 +47,9 @@ int main(void)
 
     float tension = 0, courant = 0, puissance = 0;
     float *p_tension = &tension, *p_courant = &courant, *p_puissance = &puissance;
+
+    float temp = 0;
+    float *p_temp = &temp;
 
     wiringPiSetup();
 
@@ -97,11 +103,11 @@ int main(void)
         actualTime = std::chrono::system_clock::now(); // reprend le temps actuel
 
         diffTime = std::chrono::duration_cast<std::chrono::milliseconds>(actualTime - previousTime).count(); // calcule la différence depuis le dernier passage
-        if (diffTime >= 1000)                                                                                // si diff de + de 1 sec
+        if (diffTime >= DELAYCLOCK)                                                                                // si diff de + de 1 sec
         {
             std::chrono::system_clock::time_point today = std::chrono::system_clock::now(); // ces trois
             std::time_t tt = std::chrono::system_clock::to_time_t(today);                   // lignes affichent
-            std::cout << ctime(&tt) << std::endl;                                           // le temps actuel
+            std::cout << ctime(&tt);                                           // le temps actuel
 
             previousTime = std::chrono::system_clock::now(); // place la barre du dernier passage
         }
@@ -113,7 +119,7 @@ int main(void)
         if (gyrosActive)
         {
             diffGyrosTime = std::chrono::duration_cast<std::chrono::milliseconds>(actualTime - previousGyrosTime).count(); // délai de 500ms
-            if (diffGyrosTime >= 500)
+            if (diffGyrosTime >= DELAYGYROS)
             {
                 traitementGyro(p_gx, p_gy, p_gz);
                 std::cout << "x= " << gx << ", y= " << gy << ", z= " << gz << std::endl;
@@ -144,6 +150,20 @@ int main(void)
 
         if (tempActive)
         {
+            diffTempTime = std::chrono::duration_cast<std::chrono::milliseconds>(actualTime - previousTempTime).count(); // délai de 500ms
+            if (diffTempTime >= DELAYTEMP)
+            {
+                try
+                {
+                    Temperature(p_temp);
+                    std::cout << "temperature = " << temp << "°c" << std::endl;
+                }
+                catch (...)
+                {
+                    std::cout << "la temperature est mauvaise" << std::endl;
+                }
+                previousTempTime = std::chrono::system_clock::now();
+            }
         }
 
         if (gsmActive)
@@ -153,8 +173,9 @@ int main(void)
         if (screenActive)
         {
 
+            // les commandes suivantes devront être déplacées dans les boucle correspondantes une fois tout les modules implémentés
             // code de démonstration, veuillez remplacer les chiffres par les variables
-            screenSetTemp(24.5f);
+            screenSetTemp(temp);
 
             screenSetPwr(puissance);
 

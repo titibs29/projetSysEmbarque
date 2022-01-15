@@ -1,14 +1,15 @@
 #include "Temperature.h"
 
-void Temperature()
+void Temperature(float *p_temp)
 {
+
 	if (analogRead(201))
 	{
-		printf("ERREUR\n");
+		throw "erreur";
 	}
 	else
 	{
 		int temperature = analogRead(202);
-		printf("%d.%d C\n", temperature / 10, temperature % 10);
+		*p_temp = temperature / 10.0f;
 	}
 }
