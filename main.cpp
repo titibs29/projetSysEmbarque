@@ -1,17 +1,17 @@
 #include <iostream>
 #include <wiringPi.h>
-#include <wiringSerial.h>
-#include <wiringPiI2C.h>
 #include <chrono>
 #include <mcp3422.h>
+#include <max31855.h>
 
 
-#include "libs/screen.h"
-#include "libs/SMS.h"
-#include "libs/Convertisseur_puissance.h"
-#include "libs/Temperature.h"
+
 #include "libs/gyroscope.h"
-#include "libs/rtc.h"
+#include "libs/Convertisseur_puissance.h"
+#include "libs/screen.h"
+// #include "libs/SMS.h"
+// #include "libs/Temperature.h"
+// #include "libs/rtc.h"
 
 // Define du convertisseur
 #define ADDR_I2C 0x68 // Adresse en hexa de la communication I2C

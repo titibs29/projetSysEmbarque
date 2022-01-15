@@ -1,6 +1,4 @@
-#include <string.h>
 #include <iostream>
-#include <wiringPi.h>
 #include <wiringSerial.h>
 
 #pragma once

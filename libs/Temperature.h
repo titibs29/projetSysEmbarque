@@ -5,7 +5,4 @@
 #include <max31855.h>
 #pragma once
 
-
-
-
 void Temperature();

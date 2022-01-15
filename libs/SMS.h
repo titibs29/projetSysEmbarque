@@ -1,10 +1,9 @@
 ﻿#include <stdio.h>
-#include <string.h>
+#include <iostream>
 #include <wiringPi.h>
 #include <wiringSerial.h>
 
 #pragma once
-
 
 void SendSMS(char numero[20], char message[200]);
 
@@ -22,4 +21,3 @@ int main()
 }
 
 */
-
