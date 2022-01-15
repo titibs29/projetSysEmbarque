@@ -33,11 +33,13 @@ int main(void)
     std::chrono::time_point<std::chrono::system_clock> actualTime, previousTime, previousGyrosTime; // ajouter une variable par bloc de délai
     previousTime = std::chrono::system_clock::now();
     previousGyrosTime = std::chrono::system_clock::now(); // donner une première valeur au bloc de délai
-    long int diffTime, diffGyrosTime; // ajouter une variable de comparaison
+    long int diffTime, diffGyrosTime;                     // ajouter une variable de comparaison
 
     // variables
     float gx = 0, gy = 0, gz = 0;
     float *p_gx = &gx, *p_gy = &gy, *p_gz = &gz;
+
+    wiringPiSetup();
 
     // Init Gyro
     if (gyrosActive)
@@ -82,8 +84,6 @@ int main(void)
     {
     }
 
-    wiringPiSetup();
-
     // INIT
 
     while (1)
@@ -91,7 +91,7 @@ int main(void)
         actualTime = std::chrono::system_clock::now(); // reprend le temps actuel
 
         diffTime = std::chrono::duration_cast<std::chrono::milliseconds>(actualTime - previousTime).count(); // calcule la différence depuis le dernier passage
-        if (diffTime >= 1000) // si diff de + de 1 sec
+        if (diffTime >= 1000)                                                                                // si diff de + de 1 sec
         {
             std::chrono::system_clock::time_point today = std::chrono::system_clock::now(); // ces trois
             std::time_t tt = std::chrono::system_clock::to_time_t(today);                   // lignes affichent
@@ -100,24 +100,22 @@ int main(void)
             previousTime = std::chrono::system_clock::now(); // place la barre du dernier passage
         }
 
+        if (rtcActive)
+        {
+        }
+
         if (gyrosActive)
         {
-            diffGyrosTime = std::chrono::duration_cast<std::chrono::milliseconds>(actualTime - previousGyrosTime).count();
+            diffGyrosTime = std::chrono::duration_cast<std::chrono::milliseconds>(actualTime - previousGyrosTime).count(); // délai de 500ms
             if (diffGyrosTime >= 500)
             {
                 traitementGyro(p_gx, p_gy, p_gz);
-                printf("x= %.2f, y= %.2f, z= %.2f \n", gx, gy, gz);
+                std::cout << "x= " << gx << ", y= " << gy << ", z= " << gz << std::endl;
                 previousGyrosTime = std::chrono::system_clock::now();
             }
-
-            // delay 500
         }
 
         if (gpsActive)
-        {
-        }
-
-        if (rtcActive)
         {
         }
 
@@ -125,7 +123,10 @@ int main(void)
         {
         }
 
-        if (gsmActive)
+        if (convActive)
+        {
+        }
+        if (stepActive)
         {
         }
 
@@ -133,10 +134,7 @@ int main(void)
         {
         }
 
-        if (convActive)
-        {
-        }
-        if (stepActive)
+        if (gsmActive)
         {
         }
 
