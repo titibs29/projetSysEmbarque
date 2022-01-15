@@ -6,7 +6,8 @@ void SendSMS(char numero[20], char message[200])
     std::cout << "Opening connection " << std::endl;
     connection = serialOpen("/dev/ttyAMA0", 9600);
     delay(1000);
-    std::cout << "Connection: " << connection << std::endl << std::endl;
+    std::cout << "Connection: " << connection << std::endl
+              << std::endl;
 
     // Set gsm to text mode
     serialPuts(connection, "AT+CMGF=1 \r\n");

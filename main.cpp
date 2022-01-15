@@ -7,7 +7,7 @@
 #include "libs/gyroscope.h"
 #include "libs/Convertisseur_puissance.h"
 #include "libs/screen.h"
-// #include "libs/SMS.h"
+#include "libs/SMS.h"
 #include "libs/Temperature.h"
 // #include "libs/rtc.h"
 
@@ -51,7 +51,14 @@ int main(void)
     float temp = 0;
     float *p_temp = &temp;
 
+    char numero[20] = "\"+32494801130\"";
+	char message[200] = "la température est très élevée (>25c).";
+
     wiringPiSetup();
+
+    if (rtcActive)
+    {
+    }
 
     // Init Gyro
     if (gyrosActive)
@@ -60,10 +67,6 @@ int main(void)
     }
 
     if (gpsActive)
-    {
-    }
-
-    if (rtcActive)
     {
     }
 
@@ -168,6 +171,9 @@ int main(void)
 
         if (gsmActive)
         {
+            if(temp >= 25.0f){
+                SendSMS(numero, message);
+            }
         }
 
         if (screenActive)
