@@ -45,7 +45,7 @@ void screenInit()
 	}
 }
 
-void screenSetTemp(double temp)
+void screenSetTemp(float temp)
 {
 	try {
 
@@ -80,7 +80,7 @@ void screenSetTemp(int temp)
 	}
 }
 
-void screenSetPwr(double pwr)
+void screenSetPwr(float pwr)
 {
 	try {
 
@@ -101,7 +101,7 @@ void screenSetLatitude(int lat)
 {
 	try {
 
-		char text[LENGTH * sizeof(char)];		// int�gre la valeur dans le texte
+		char text[LENGTH * sizeof(char)];		// integre la valeur dans le texte
 		std::sprintf(text, "lat_val.val=%d", lat);
 
 		screenSendCommand(text);
@@ -129,7 +129,7 @@ void screenSetLongitude(int lon)
 	}
 }
 
-void screenSetPosition(double lat, double lon)
+void screenSetPosition(float lat, float lon)
 {
 	try {
 		int latitude = int(lat * 1000000);

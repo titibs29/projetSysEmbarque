@@ -11,12 +11,12 @@ void screenSendCommand(const char* cmd);
 void screenInit();
 
 // temperature avec max. 1 décimale
-void screenSetTemp(double temp);
+void screenSetTemp(float temp);
 
 void screenSetTemp(int temp);
 
 // puissance avec max. 1 décimale
-void screenSetPwr(double pwr);
+void screenSetPwr(float pwr);
 
 // fragment de SetPosition, ne pas utiliser
 void screenSetLatitude(int lat);
@@ -25,7 +25,7 @@ void screenSetLatitude(int lat);
 void screenSetLongitude(int lon);
 
 // entrer les coordonees suivie de max. 6 décimales
-void screenSetPosition(double lat,double lon);
+void screenSetPosition(float lat,float lon);
 
 void screenSetSignal(int sig);
 
