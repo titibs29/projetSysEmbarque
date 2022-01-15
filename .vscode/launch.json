@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/main.o",
-            "args": [],
+            "args": ["-Wall"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
