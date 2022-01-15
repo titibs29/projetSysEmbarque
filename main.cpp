@@ -1,6 +1,7 @@
 #include <iostream>
 #include <wiringPi.h>
 #include <wiringSerial.h>
+#include <wiringPiI2C.h>
 #include <chrono>
 #include <mcp3422.h>
 
@@ -153,11 +154,11 @@ int main(void)
         {
 
             // code de démonstration, veuillez remplacer les chiffres par les variables
-            screenSetTemp(24.5);
+            screenSetTemp(24.5f);
 
-            screenSetPwr(245.0);
+            screenSetPwr(puissance);
 
-            screenSetPosition(50.460860, 3.957098);
+            screenSetPosition(50.460860f, 3.957098f);
 
             screenSetSignal(2);
         }
