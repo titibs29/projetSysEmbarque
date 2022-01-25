@@ -144,19 +144,57 @@ void screenSetPosition(float lat, float lon)
 	}
 }
 
-void screenSetSignal(int signal)
+void screenSetGyro(float x, float y)
 {
 	try {
 
-		char text[LENGTH * sizeof(char)];
-		std::sprintf(text, "sig_val.val=%d", signal);
+		int x_int = int(x * 100);		// change la valeur en entier, puis l'integre dans le texte
+		int y_int = int(y * 100);
 
-		screenSendCommand(text);
+		char text_x[LENGTH * sizeof(char)];
+		std::sprintf(text_x, "gyro_x_val.val=%d", x_int );
+
+		screenSendCommand(text_x);
+
+		while (serialDataAvail(hmi)) { serialGetchar(hmi); } // vide le buffer
+
+		char text_y[LENGTH * sizeof(char)];
+		std::sprintf(text_y, "gyro_y_val.val=%d", y_int );
+
+		screenSendCommand(text_y);
 
 		while (serialDataAvail(hmi)) { serialGetchar(hmi); }
+
 	}
 	catch (const char* msg) {
-		std::cout << "erreur � l'envoi du signal: " << msg << std::endl;
+		std::cout << "erreur a l'envoi des donnees du gyroscope : " << msg << std::endl;
+	}
+}
+
+void screenSetAccel(float x, float y)
+{
+	try {
+
+		int x_int = int(x * 100);		// change la valeur en entier, puis l'integre dans le texte
+		int y_int = int(y * 100);
+
+		char text_x[LENGTH * sizeof(char)];
+		std::sprintf(text_x, "accel_x_val.val=%d", x_int );
+
+		screenSendCommand(text_x);
+
+		while (serialDataAvail(hmi)) { serialGetchar(hmi); } // vide le buffer
+
+		char text_y[LENGTH * sizeof(char)];
+		std::sprintf(text_y, "accel_y_val.val=%d", y_int );
+
+		screenSendCommand(text_y);
+
+		while (serialDataAvail(hmi)) { serialGetchar(hmi); }
+
+	}
+	catch (const char* msg) {
+		std::cout << "erreur a l'envoi des donnees de l'accelerometre : " << msg << std::endl;
 	}
 }
 
@@ -171,6 +209,6 @@ void screenClose()
 		serialClose(hmi);
 	}
 	catch (const char* msg) {
-		std::cout << "erreur � la fermeture: " << msg << std::endl;
+		std::cout << "erreur a la fermeture: " << msg << std::endl;
 	}
 }

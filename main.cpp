@@ -187,7 +187,9 @@ int main(void)
 
             screenSetPosition(50.460860f, 3.957098f);
 
-            screenSetSignal(2);
+            screenSetGyro(0.23f, 0.16f);
+
+            screenSetAccel(0.45f, -0.89f);
         }
     }
 

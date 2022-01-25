@@ -25,7 +25,11 @@ void screenSetLongitude(int lon);
 // entrer les coordonees suivie de max. 6 décimales
 void screenSetPosition(float lat,float lon);
 
-void screenSetSignal(int sig);
+// les valeurs ont 2 décimales
+void screenSetGyro(float x, float y);
+
+// les valeurs ont 2 décimales
+void screenSetAccel(float x, float y);
 
 int screenStatus();
 
