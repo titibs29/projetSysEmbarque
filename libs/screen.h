@@ -31,6 +31,8 @@ void screenSetGyro(float x, float y);
 // les valeurs ont 2 décimales
 void screenSetAccel(float x, float y);
 
+void screenSetTime(int hour, int min);
+
 int screenStatus();
 
 void screenClose();

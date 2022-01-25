@@ -198,6 +198,22 @@ void screenSetAccel(float x, float y)
 	}
 }
 
+void screenSetTime(int hour, int min)
+{
+	try {
+
+		char text[LENGTH * sizeof(char)];
+		std::sprintf(text, 'time.txt="%d:%d"', hour, min);
+
+		screenSendCommand(text);
+
+		while (serialDataAvail(hmi)) { serialGetchar(hmi); }
+	}
+	catch (const char* msg) {
+		std::cout << "erreur a l'envoi de l'heure: " << msg << std::endl;
+	}
+}
+
 int screenStatus()
 {
 	return hmi;

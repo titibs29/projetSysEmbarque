@@ -190,6 +190,8 @@ int main(void)
             screenSetGyro(0.23f, 0.16f);
 
             screenSetAccel(0.45f, -0.89f);
+
+            screenSetTime(12, 30)
         }
     }
 
